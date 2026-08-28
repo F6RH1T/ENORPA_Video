@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111417">
+  <title>ENORPA | Akuamarin Videosu</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;background:#111417;color:#fff;font-family:Arial,sans-serif}
+    main{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+    video{width:100%;height:100%;object-fit:contain;background:#000}
+    .brand{position:fixed;top:max(16px,env(safe-area-inset-top));left:18px;z-index:2;padding:8px 12px;border-radius:9px;background:rgba(17,20,23,.72);backdrop-filter:blur(8px);font-weight:800;letter-spacing:.08em;color:#f47b20}
+    #sound{position:fixed;left:50%;bottom:max(28px,calc(env(safe-area-inset-bottom) + 18px));transform:translateX(-50%);z-index:3;border:0;border-radius:999px;padding:13px 21px;background:#f47b20;color:#fff;font-size:16px;font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,.35);cursor:pointer}
+    #sound[hidden]{display:none}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">ENORPA</div>
+    <video id="video" controls autoplay muted playsinline preload="auto">
+      <source src="./AKUAMARI%CC%87N.mp4" type="video/mp4">
+      Tarayıcınız video oynatmayı desteklemiyor.
+    </video>
+    <button id="sound" type="button">Sesi Aç</button>
+  </main>
+  <script>
+    const video = document.getElementById('video');
+    const sound = document.getElementById('sound');
+    video.play().catch(() => {});
+    sound.addEventListener('click', async () => {
+      video.muted = false;
+      try { await video.play(); } catch (_) {}
+      sound.hidden = true;
+    });
+    video.addEventListener('volumechange', () => {
+      if (!video.muted && video.volume > 0) sound.hidden = true;
+    });
+  </script>
+</body>
+</html>
